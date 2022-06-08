@@ -1,0 +1,6 @@
+#Archivos
+.DS_Store
+.env
+#Carpetas
+node_modules
+logs/logs.log
