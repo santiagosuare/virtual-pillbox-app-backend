@@ -1,8 +1,14 @@
 const express = require("express");
 const medicineRouter = express.Router();
 
-const { CreateTable } = require("../controllers/medicine.controller");
+const {
+  CreateTable,
+  readAllMedicines,
+  readMedicine,
+} = require("../controllers/medicine.controller");
 
-medicineRouter.get("/create", CreateTable);
+// medicineRouter.get("/create", CreateTable);
+medicineRouter.get("/", readAllMedicines);
+medicineRouter.get("/:id", readMedicine);
 
 module.exports = medicineRouter;
