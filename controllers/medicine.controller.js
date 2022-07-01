@@ -1,43 +1,45 @@
-const Medicine = require("../models/medicine.model");
+const Daos = require("../daos/mainMongo");
+const Medicine = new Daos.medicineDaos();
 const log4js = require("../logs/logs");
 
 module.exports = {
-  CreateTable: async (req, res) => {
-    try {
-      await Medicine.sync();
-      log4js.info(`MedicineController: CreateTable: Table created`);
-      res.send("ok");
-    } catch (error) {
-      log4js.error(`MedicineController: CreateTable: ${error}`);
-      res.send(error);
-    }
-  },
-
+  // READ All Medicine
   readAllMedicines: async (req, res) => {
     try {
-      const data = await Medicine.findAll({});
-      if (data.length > 0) {
-        log4js.info(`MedicineController: readAllMedicines: ${data}`);
-        res.status(200).json(data);
-      } else {
-        log4js.warn(`MedicineController: readAllMedicines: No data found`);
-        res.status(404).json({ message: "No data found" });
-      }
+      const medicines = await Medicine.readAllMedicines();
+      log4js.info(`Medicines: ${JSON.stringify(medicines)}`);
+      res.status(200).send({
+        status: 200,
+        message: "Successfully read all medicines",
+        data: medicines,
+      });
     } catch (error) {
       log4js.error(`MedicineController: readAllMedicines: ${error}`);
-      res.send(error);
+      res.status(500).send({
+        status: 500,
+        message: "Error reading all medicines",
+        data: error,
+      });
     }
   },
 
-  readMedicine: async (req, res) => {
-    const id = req.params.id;
-    const medicine = await Medicine.findByPk(id);
-    if (medicine) {
-      log4js.info(`MedicineController: readMedicine: ${medicine}`);
-      res.status(200).json(medicine);
-    } else {
-      log4js.warn(`MedicineController: readMedicine: No data found`);
-      res.status(404).json({ message: "No data found" });
+  // CREATE Medicine
+  createMedicine: async (req, res) => {
+    try {
+      const newMedicine = await Medicine.createMedicine(req.body);
+      log4js.info(`Medicine Create: ${JSON.stringify(newMedicine)}`);
+      res.status(201).send({
+        status: 201,
+        message: "Successfully created medicine",
+        data: newMedicine,
+      });
+    } catch (error) {
+      log4js.error(`MedicineController: createMedicine: ${error}`);
+      res.status(500).send({
+        status: 500,
+        message: "Error creating medicine",
+        data: error,
+      });
     }
   },
 };

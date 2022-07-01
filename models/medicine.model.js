@@ -1,50 +1,45 @@
-const { sequelize } = require("../db/mysqlDB");
-const { DataTypes } = require("sequelize");
+const mongoose = require("mongoose");
 
-const Medicine = sequelize.define(
-  "medicamento",
-  {
-    Nombre: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Monodroga: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Laboratorio: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    Dosis: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Unidad_Medida: {
-      type: DataTypes.ENUM,
-      values: ["ml", "gr", "mg", "mcg", "U"],
-      allowNull: false,
-    },
-    Foto: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Presentacion: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    Comentario: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
+const medicineModel = new mongoose.Schema({
+  Nombre: {
+    type: String,
+    required: true,
+    max: 100,
   },
-  {
-    timestamps: false,
-  }
-);
+  Monodroga: {
+    type: String,
+    required: true,
+    max: 100,
+  },
+  Id_Laboratorio: {
+    type: String,
+    required: true,
+    max: 100,
+  },
+  Dosis: {
+    type: String,
+    required: true,
+    max: 100,
+  },
+  Unidad_Medida: {
+    type: String,
+    enum: ["ml", "gr", "mg", "U"],
+    required: true,
+  },
+  foto: {
+    type: String,
+    required: true,
+  },
+  Presentacion: {
+    type: String,
+    required: true,
+    max: 100,
+  },
+  Observaciones: {
+    type: String,
+    required: true,
+    max: 100,
+  },
+});
 
-// User.hasOne(Obra_Social, { foreignKey: "Id_Obra_Social" });
-
-// User.hasOne(Rutina, { foreignKey: "Id_Rutina" });
-
-module.exports = Medicine;
+module.exports = mongoose.model("medicine", medicineModel);
