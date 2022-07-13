@@ -4,19 +4,22 @@ import "dotenv/config";
 
 const url = process.env.DB_URL;
 
-async function connectDB() {
-  try {
-    mongoose.connect(
-      url,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-      e => log4js.error(`MongoDB connection config error: ${e}`)
-    );
-  } catch (error) {
-    log4js.error(`MongoDB connection error: ${error}`);
-  }
+const connectDB = async () => {
+  await new Promise((resolve, reject) => {
+    try {
+      mongoose.connect(
+        url,
+        {},
+        () => { 
+          log4js.info("Connected to MongoDB");
+          resolve();
+        }
+      );
+    } catch (error) {
+      log4js.error(`MongoDB connection error: ${error}`);
+      reject();
+    }
+  });
 }
 
 export default connectDB;

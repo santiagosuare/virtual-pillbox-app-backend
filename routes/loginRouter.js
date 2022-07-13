@@ -1,8 +1,8 @@
 import express from "express";
 const loginRouter = express.Router();
-import * as Daos from "../daos/mainMongo";
+import * as Daos from "../daos/mainMongo.js";
 const User = new Daos.userDaos();
-import log4js from "../logs/logs";
+import log4js from "../logs/logs.js";
 
 import { generateToken } from "../controllers/login.controller.js";
 
@@ -10,7 +10,7 @@ loginRouter.post("/", async (req, res) => {
   try {
     const { Usuario, Password } = req.body;
 
-    const user = await User.getUserByUsername(Usuario);
+    const user = await User.getUserByUsername(Usuario, Password);
 
     if (user) {
       const token = generateToken(user);
@@ -29,6 +29,7 @@ loginRouter.post("/", async (req, res) => {
       });
     }
   } catch (error) {
+    log4js.error(error);
     res.status(500).send({
       status: 500,
       message: "Internal server error",

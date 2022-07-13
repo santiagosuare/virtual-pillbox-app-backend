@@ -72,6 +72,7 @@ class User {
       await this.connectDb();
       const user = await userModel.findOne({
         Usuario: username,
+        Password: password,
       });
       mongoose.disconnect();
       return user;
@@ -81,17 +82,18 @@ class User {
     }
   }
 
-  async getUserByUsername(username) {
+  async getUserByUsername(username, password) {
     try {
       await this.connectDb();
       const user = await userModel.findOne({
         Usuario: username,
+        Password: password,
       });
-      mongoose.disconnect();
       return user;
     } catch (error) {
-      mongoose.disconnect();
       throw error;
+    } finally {
+      mongoose.disconnect();
     }
   }
 }
