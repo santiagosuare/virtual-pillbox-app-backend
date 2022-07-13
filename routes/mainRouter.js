@@ -9,6 +9,7 @@ let login = require("./loginRouter");
 
 //ROUTES
 router.use(function (req, res, next) {
+  console.log({ originalReqBody: req.body });
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",

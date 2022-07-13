@@ -4,9 +4,7 @@ const PRIVATE_KEY = "secretkey";
 
 function generateToken(user) {
   const payload = {
-    subject: user.id,
-    username: user.username,
-    role: user.role,
+    subject: user,
   };
   const options = {
     expiresIn: "1h",
