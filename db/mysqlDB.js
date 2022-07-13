@@ -1,6 +1,5 @@
-const { Sequelize } = require("sequelize");
-const log4js = require("../logs/logs");
-require("dotenv").config();
+import { Sequelize } from "sequelize";
+import log4js from "../logs/logs.js";
 
 const config = {
   client: process.env.DB_CLIENT,
@@ -32,4 +31,4 @@ sequelize
     log4js.error("Unable to connect to the database:", err);
   });
 
-module.exports = { sequelize };
+export default { sequelize };

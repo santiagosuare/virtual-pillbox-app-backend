@@ -1,12 +1,9 @@
-const express = require("express");
-const medicalInsuranceRouter = express.Router();
+import { Router } from "express";
+const medicalInsuranceRouter = Router();
 
-const {
-  readAllMedicalInsurances,
-  createMedicalInsurance,
-} = require("../controllers/medicalinsurance.controller");
+import { readAllMedicalInsurances, createMedicalInsurance } from "../controllers/medicalinsurance.controller.js";
 
 medicalInsuranceRouter.get("/", readAllMedicalInsurances);
 medicalInsuranceRouter.post("/", createMedicalInsurance);
 
-module.exports = medicalInsuranceRouter;
+export default medicalInsuranceRouter;

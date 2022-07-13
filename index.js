@@ -1,21 +1,22 @@
-const express = require("express");
-const cors = require("cors");
+import express, { urlencoded, json } from "express";
+import cors from "cors";
 const app = express();
-const log4js = require("./logs/logs.js");
-const router = require("./routes/mainRouter.js");
-require("dotenv").config();
+import logger from "./logs/logs.js";
+import router from "./routes/mainRouter.js";
+import 'dotenv/config'
 
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(urlencoded({ extended: true }));
+app.use(json());
 
+const PORT = process.env.PORT || 8080;
 //CONECCION AL PUERTO
-const connectServer = app.listen(process.env.PORT || 8081, () => {
-  log4js.info(`Server started at port ${process.env.PORT}`);
+const connectServer = app.listen(PORT, () => {
+    logger.info(`Server started on port ${PORT}`);
 });
 
 connectServer.on("error", (err) => {
-  log4js.error(err);
+    logger.error(err);
 });
 
 //ROUTES

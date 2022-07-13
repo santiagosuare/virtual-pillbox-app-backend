@@ -1,5 +1,5 @@
-const userDaos = require("./userMongo");
-const medicineDaos = require("./medicineMongo");
-const medicalInsuranceDaos = require("./medicalinsuranceMongo");
+import userDaos from "./userMongo.js";
+import medicineDaos from "./medicineMongo.js";
+import medicalInsuranceDaos from "./medicalinsuranceMongo.js";
 
-module.exports = { userDaos, medicalInsuranceDaos, medicineDaos };
+export { userDaos, medicalInsuranceDaos, medicineDaos };

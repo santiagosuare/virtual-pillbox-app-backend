@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const connectDb = require("../db/mongo");
-const userModel = require("../models/user.model");
+import mongoose from "mongoose";
+import connectDb from "../db/mongo.js";
+import userModel from "../models/user.model.js";
 
 class User {
   async connectDb() {
@@ -59,13 +59,13 @@ class User {
     try {
       await this.connectDb();
       const updatedUser = await userModel.findOneAndUpdate({ _id: id }, user);
-      mongoose.disconnect();
+      disconnect();
       return updatedUser;
     } catch (error) {
-      mongoose.disconnect();
+      disconnect();
       throw error;
     }
   }
 }
 
-module.exports = User;
+export default User;

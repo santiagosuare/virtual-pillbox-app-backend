@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-const medicalInsuranceModel = new mongoose.Schema({
+const medicalInsuranceModel = new Schema({
   Nombre: {
     type: String,
     required: true,
@@ -18,4 +19,4 @@ const medicalInsuranceModel = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("medicalinsurance", medicalInsuranceModel);
+export default model("medicalinsurance", medicalInsuranceModel);

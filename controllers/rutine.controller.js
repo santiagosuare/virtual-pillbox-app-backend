@@ -1,31 +1,28 @@
-const log4js = require("../logs/logs");
-const RutineModel = require("../models/rutine.model");
+import { info, error as _error, warn } from "../logs/logs.js";
+import { sync, findAll } from "../models/rutine.model.js";
 
-module.exports = {
-  createTable: async (req, res) => {
-    try {
-      await RutineModel.sync();
-      log4js.info(`RutineController: createTable: Table created`);
-      res.send("ok");
-    } catch (error) {
-      log4js.error(`RutineController: createTable: ${error}`);
-      res.send(error);
+export async function createTable(req, res) {
+  try {
+    await sync();
+    info(`RutineController: createTable: Table created`);
+    res.send("ok");
+  } catch (error) {
+    _error(`RutineController: createTable: ${error}`);
+    res.send(error);
+  }
+}
+export async function readAllRutines(req, res) {
+  try {
+    const data = await findAll({});
+    if (data.length > 0) {
+      info(`RutineController: readAllRutines: ${data}`);
+      res.status(200).json(data);
+    } else {
+      warn(`RutineController: readAllRutines: No data found`);
+      res.status(404).json({ message: "No data found" });
     }
-  },
-  // READ All Rutine
-  readAllRutines: async (req, res) => {
-    try {
-      const data = await RutineModel.findAll({});
-      if (data.length > 0) {
-        log4js.info(`RutineController: readAllRutines: ${data}`);
-        res.status(200).json(data);
-      } else {
-        log4js.warn(`RutineController: readAllRutines: No data found`);
-        res.status(404).json({ message: "No data found" });
-      }
-    } catch (error) {
-      log4js.error(`RutineController: readAllRutines: ${error}`);
-      res.send(error);
-    }
-  },
-};
+  } catch (error) {
+    _error(`RutineController: readAllRutines: ${error}`);
+    res.send(error);
+  }
+}
