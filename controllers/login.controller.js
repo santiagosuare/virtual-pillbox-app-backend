@@ -7,9 +7,7 @@ const generateToken = (user) =>{
   const payload = {
     subject: user,
   };
-  const options = {
-    expiresIn: "1h",
-  };
+  const options = {};
   return sign(payload, PRIVATE_KEY, options);
 }
 

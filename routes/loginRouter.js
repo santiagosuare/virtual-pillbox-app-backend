@@ -8,9 +8,9 @@ import { generateToken } from "../controllers/login.controller.js";
 
 loginRouter.post("/", async (req, res) => {
   try {
-    const { Usuario, Password } = req.body;
+    const { email, password } = req.body;
 
-    const user = await User.getUserByUsername(Usuario, Password);
+    const user = await User.getUserByUsername(email, password);
 
     if (user) {
       const token = generateToken(user);
