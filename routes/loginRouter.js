@@ -1,17 +1,20 @@
-import { Router } from "express";
-const loginRouter = Router();
-import { userDaos } from "../daos/mainMongo.js";
-const User = new userDaos();
+import express from "express";
+const loginRouter = express.Router();
+import * as Daos from "../daos/mainMongo";
+const User = new Daos.userDaos();
+import log4js from "../logs/logs";
 
 import { generateToken } from "../controllers/login.controller.js";
 
-loginRouter.post("/:id", async (req, res) => {
+loginRouter.post("/", async (req, res) => {
   try {
-    console.log(req.params.id);
-    const user = await User.readUserById(req.params.id);
-    console.log(user);
+    const { Usuario, Password } = req.body;
+
+    const user = await User.getUserByUsername(Usuario);
+
     if (user) {
       const token = generateToken(user);
+      log4js.info(user, token);
       res.status(200).send({
         status: 200,
         message: "Successfully read user",
@@ -19,6 +22,7 @@ loginRouter.post("/:id", async (req, res) => {
         token: token,
       });
     } else {
+      log4js.error("No user login");
       res.status(404).send({
         status: 404,
         message: "User not found",
@@ -27,8 +31,7 @@ loginRouter.post("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).send({
       status: 500,
-      message: "Error reading user",
-      data: error,
+      message: "Internal server error",
     });
   }
 });

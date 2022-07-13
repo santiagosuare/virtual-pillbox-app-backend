@@ -66,6 +66,34 @@ class User {
       throw error;
     }
   }
+
+  async getUserByUsernameAndPassword(username, password) {
+    try {
+      await this.connectDb();
+      const user = await userModel.findOne({
+        Usuario: username,
+      });
+      mongoose.disconnect();
+      return user;
+    } catch (error) {
+      mongoose.disconnect();
+      throw error;
+    }
+  }
+
+  async getUserByUsername(username) {
+    try {
+      await this.connectDb();
+      const user = await userModel.findOne({
+        Usuario: username,
+      });
+      mongoose.disconnect();
+      return user;
+    } catch (error) {
+      mongoose.disconnect();
+      throw error;
+    }
+  }
 }
 
 export default User;
