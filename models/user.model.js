@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-const userModel = new mongoose.Schema({
+const userModel = new Schema({
   id: {},
   DNI: {
     type: Number,
@@ -38,4 +39,4 @@ const userModel = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("user", userModel);
+export default model("user", userModel);

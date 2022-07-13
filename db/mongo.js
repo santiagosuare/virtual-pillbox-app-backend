@@ -1,19 +1,22 @@
-const connect = require("mongoose").connect;
-const log4js = require("../logs/logs");
-require("dotenv").config();
+import mongoose from "mongoose";
+import log4js from "../logs/logs.js";
+import "dotenv/config";
 
 const url = process.env.DB_URL;
 
 async function connectDB() {
   try {
-    const client = await connect(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    log4js.info(`MongoDB connected: ${client.connection.host}`);
+    mongoose.connect(
+      url,
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+      e => log4js.error(`MongoDB connection config error: ${e}`)
+    );
   } catch (error) {
-    log4js.error(`MongoDB connection config error: ${error}`);
+    log4js.error(`MongoDB connection error: ${error}`);
   }
 }
 
-module.exports = connectDB;
+export default connectDB;

@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
-const connectDb = require("../db/mongo");
-const medicineModel = require("../models/medicine.model");
+import mongoose from "mongoose";
+import connectDb from "../db/mongo.js";
+import medicineModel from "../models/medicine.model.js";
 
+const { disconnect } = mongoose;
 class Medicine {
   async connectDb() {
     return await connectDb();
@@ -11,10 +12,10 @@ class Medicine {
     try {
       await this.connectDb();
       const newMedicine = await medicineModel.create(medicine);
-      mongoose.disconnect();
+      disconnect();
       return newMedicine;
     } catch (error) {
-      mongoose.disconnect();
+      disconnect();
       throw error;
     }
   }
@@ -23,13 +24,13 @@ class Medicine {
     try {
       await this.connectDb();
       const medicines = await medicineModel.find();
-      mongoose.disconnect();
+      disconnect();
       return medicines;
     } catch (error) {
-      mongoose.disconnect();
+      disconnect();
       throw error;
     }
   }
 }
 
-module.exports = Medicine;
+export default Medicine;

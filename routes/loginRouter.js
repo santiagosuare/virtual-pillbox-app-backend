@@ -1,9 +1,9 @@
-const express = require("express");
-const loginRouter = express.Router();
-const Daos = require("../daos/mainMongo");
-const User = new Daos.userDaos();
+import { Router } from "express";
+const loginRouter = Router();
+import { userDaos } from "../daos/mainMongo.js";
+const User = new userDaos();
 
-const { generateToken } = require("../controllers/login.controller");
+import { generateToken } from "../controllers/login.controller.js";
 
 loginRouter.post("/:id", async (req, res) => {
   try {
@@ -33,4 +33,4 @@ loginRouter.post("/:id", async (req, res) => {
   }
 });
 
-module.exports = loginRouter;
+export default loginRouter;

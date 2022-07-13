@@ -1,14 +1,8 @@
-const express = require("express");
-const userRouter = express.Router();
+import { Router } from "express";
+const userRouter = Router();
 
 // Require User model in our routes module
-const {
-  readAllUsers,
-  createUser,
-  readUserById,
-  deleteUser,
-  updateUser,
-} = require("../controllers/user.controller");
+import { readAllUsers, createUser, readUserById, deleteUser, updateUser } from "../controllers/user.controller.js";
 
 //APIS
 userRouter.get("/", readAllUsers);
@@ -17,4 +11,4 @@ userRouter.post("/", createUser);
 userRouter.delete("/:id", deleteUser);
 userRouter.put("/:id", updateUser);
 
-module.exports = userRouter;
+export default userRouter;

@@ -1,14 +1,14 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 //ROUTER
-let user = require("./userRouter.js");
-let medicalinsurance = require("./medicalinsuranceRouter.js");
-let medicine = require("./medicineRouter");
-let login = require("./loginRouter");
+import user from "./userRouter.js";
+import medicalinsurance from "./medicalinsuranceRouter.js";
+import medicine from "./medicineRouter.js";
+import login from "./loginRouter.js";
 
 //ROUTES
-router.use(function (req, res, next) {
+router.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -22,4 +22,4 @@ router.use("/user", user);
 router.use("/medicalinsurance", medicalinsurance);
 router.use("/medicine", medicine);
 
-module.exports = router;
+export default router;

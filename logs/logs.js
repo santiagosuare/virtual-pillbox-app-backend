@@ -1,6 +1,7 @@
-const log4js = require("log4js");
+import log4js from "log4js";
+const { configure, getLogger } = log4js;
 
-log4js.configure({
+configure({
   appenders: {
     miLoggerFile: {
       type: "file",
@@ -21,4 +22,4 @@ log4js.configure({
   },
 });
 
-module.exports = log4js.getLogger();
+export default getLogger();

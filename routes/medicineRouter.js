@@ -1,12 +1,9 @@
-const express = require("express");
-const medicineRouter = express.Router();
+import { Router } from "express";
+const medicineRouter = Router();
 
-const {
-  readAllMedicines,
-  createMedicine,
-} = require("../controllers/medicine.controller");
+import { readAllMedicines, createMedicine } from "../controllers/medicine.controller.js";
 
 medicineRouter.get("/", readAllMedicines);
 medicineRouter.post("/", createMedicine);
 
-module.exports = medicineRouter;
+export default medicineRouter;

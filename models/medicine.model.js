@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-const medicineModel = new mongoose.Schema({
+const medicineModel = new Schema({
   Nombre: {
     type: String,
     required: true,
@@ -42,4 +43,4 @@ const medicineModel = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("medicine", medicineModel);
+export default model("medicine", medicineModel);

@@ -1,5 +1,5 @@
-const { sequelize } = require("../db/mysqlDB");
-const { DataTypes } = require("sequelize");
+import { sequelize } from "../db/mysqlDB.js";
+import { DataTypes } from "sequelize";
 
 const Rutine = sequelize.define(
   "rutina",
@@ -50,4 +50,4 @@ const Rutine = sequelize.define(
   }
 );
 
-module.exports = Rutine;
+export default Rutine;
