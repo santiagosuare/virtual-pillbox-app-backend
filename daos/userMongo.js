@@ -74,21 +74,24 @@ class User {
         Usuario: username,
         Password: password,
       });
-      mongoose.disconnect();
       return user;
     } catch (error) {
-      mongoose.disconnect();
       throw error;
+    } finally {
+      mongoose.disconnect();
     }
   }
 
-  async getUserByUsername(username, password) {
+  async getUserByUsername(identification, password) {
     try {
       await this.connectDb();
-      const user = await userModel.findOne({
-        Usuario: username,
-        Password: password,
-      });
+      const idType = 0|identification ? 'DNI' : 'Usuario';
+      const query = {
+          [idType]: identification,
+          Password: password,
+      }
+      console.log(query);
+      const user = await userModel.findOne(query);
       return user;
     } catch (error) {
       throw error;
